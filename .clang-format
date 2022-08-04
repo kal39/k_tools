@@ -1,0 +1,15 @@
+BasedOnStyle: LLVM
+ColumnLimit: 120
+UseTab: Always
+IndentWidth: 4
+TabWidth: 4
+IndentCaseLabels: true
+AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: false
+AlignOperands: false
+BreakBeforeTernaryOperators: false
+BinPackArguments: false
