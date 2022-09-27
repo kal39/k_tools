@@ -6,8 +6,7 @@
 // interface
 //--------------------------------------------------------------------------------------------------------------------//
 
-#ifndef K_LOG_H
-#define K_LOG_H
+#pragma once
 
 #define k_note(...) _k_note(__FILE__, __LINE__, __VA_ARGS__)
 #define k_debug(...) _k_debug(__FILE__, __LINE__, __VA_ARGS__)
@@ -188,5 +187,4 @@ void _k_panic(int error_code, char *file, int line, char *format, ...) {
 	exit(error_code);
 }
 
-#endif
 #endif
