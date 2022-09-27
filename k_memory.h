@@ -50,7 +50,7 @@ typedef struct k_mem_Tracker {
 #undef realloc
 #undef free
 
-k_mem_Tracker tracker = (k_mem_Tracker){0, 0, NULL, 0, 0, 0, 0, 0};
+static k_mem_Tracker tracker = (k_mem_Tracker){0, 0, NULL, 0, 0, 0, 0, 0};
 
 static k_mem_Entry _init_entry() {
 	return (k_mem_Entry){0, NULL};
