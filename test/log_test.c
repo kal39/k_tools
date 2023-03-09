@@ -1,21 +1,23 @@
-#define K_LOG_DEBUG
 #define K_LOG_IMPLEMENTATION
 #include "../k_log.h"
 
+void cb_fn(k_LogEntry entry) {
+    printf("cb: %s\n", entry.message);
+}
+
 int main(void) {
-	k_enable_debug_logs();
-	k_log_to_file("test/out/k_log_output");
+    k_LOG_I("testing info");
+    k_LOG_L("testing low");
+    k_LOG_M("testing medium");
+    k_LOG_H("testing high");
 
-	k_note("Testing msg");
-	k_debug("Testing dbg");
-	k_error("Testing err");
+    k_LOG_I("t n l\ne e i\ns w n\nt   e\ni   s\nn\ng");
+    k_LOG_I("testing variables: %d, %f", 123, 45.6);
 
-	k_note("t n l\ne e i\ns w n\nt   e\ni   s\nn\ng");
-	k_note("Testing variables: %d, %f", 123, 45.6);
+    k_log_set_cb_function(cb_fn);
+    k_LOG_I("testing cb function");
+    k_log_set_cb_function(NULL);
 
-	k_set_max_filename_length(10);
-
-	k_stop_file_log();
-
-	k_panic(1, "Testing panic");
+    k_set_max_filename_len(10);
+    k_LOG_I("testing short max filename len");
 }
