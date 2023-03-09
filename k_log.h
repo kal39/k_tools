@@ -83,17 +83,17 @@ static char* format_pos(char* file, int32_t line) {
 }
 
 static char* format_msg(char* msg) {
-    int padding = (g_maxFilenameLen == 0 ? 50 : g_maxFilenameLen) + 12;
+    uint32_t padding = (g_maxFilenameLen == 0 ? 50 : g_maxFilenameLen) + 12;
     char* fmtMsg = malloc(strlen(msg) + 1);
     memcpy(fmtMsg, msg, strlen(msg) + 1);
 
-    for (int i = 0; fmtMsg[i] != '\0'; i++) {
+    for (uint32_t i = 0; fmtMsg[i] != '\0'; i++) {
         if (fmtMsg[i] == '\n') {
-            int lenOld = strlen(fmtMsg);
-            int lenNew = lenOld + padding;
+            uint32_t lenOld = strlen(fmtMsg);
+            uint32_t lenNew = lenOld + padding;
             fmtMsg = realloc(fmtMsg, lenNew + 1);
             memcpy(&fmtMsg[i + 1 + padding], &fmtMsg[i + 1], lenOld - i);
-            for (int j = 0; j < padding; j++) fmtMsg[i + 1 + j] = ' ';
+            for (uint32_t j = 0; j < padding; j++) fmtMsg[i + 1 + j] = ' ';
             fmtMsg[lenNew] = '\0';
         }
     }
@@ -104,7 +104,7 @@ static char* format_msg(char* msg) {
 void k_log_(char* file, int32_t line, k_LogSeverity severity, char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
-    int len = vsnprintf(NULL, 0, fmt, args) + 1;
+    uint32_t len = vsnprintf(NULL, 0, fmt, args) + 1;
     va_end(args);
     char* msg = malloc(len);
     va_start(args, fmt);
