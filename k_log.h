@@ -6,15 +6,16 @@
 // interface
 //--------------------------------------------------------------------------------------------------------------------//
 
-#pragma once
+#ifndef K_LOG_INCLUDE_GUARD
+#define K_LOG_INCLUDE_GUARD
 
 #include <stdint.h>
 
 typedef enum k_LogSeverity {
-    k_SEVERITY_HIGH = 3,
-    k_SEVERITY_MEDIUM = 2,
-    k_SEVERITY_LOW = 1,
-    k_SEVERITY_INFO = 0,
+    K_SEVERITY_HIGH = 3,
+    K_SEVERITY_MEDIUM = 2,
+    K_SEVERITY_LOW = 1,
+    K_SEVERITY_INFO = 0,
 } k_LogSeverity;
 
 typedef struct k_LogEntry {
@@ -26,10 +27,10 @@ typedef struct k_LogEntry {
 
 typedef void(k_log_cb_function)(k_LogEntry entry);
 
-#define k_LOG_H(...) k_log_(__FILE__, __LINE__, k_SEVERITY_HIGH, __VA_ARGS__);
-#define k_LOG_M(...) k_log_(__FILE__, __LINE__, k_SEVERITY_MEDIUM, __VA_ARGS__);
-#define k_LOG_L(...) k_log_(__FILE__, __LINE__, k_SEVERITY_LOW, __VA_ARGS__);
-#define k_LOG_I(...) k_log_(__FILE__, __LINE__, k_SEVERITY_INFO, __VA_ARGS__);
+#define K_LOG_H(...) k_log_(__FILE__, __LINE__, K_SEVERITY_HIGH, __VA_ARGS__);
+#define K_LOG_M(...) k_log_(__FILE__, __LINE__, K_SEVERITY_MEDIUM, __VA_ARGS__);
+#define K_LOG_L(...) k_log_(__FILE__, __LINE__, K_SEVERITY_LOW, __VA_ARGS__);
+#define K_LOG_I(...) k_log_(__FILE__, __LINE__, K_SEVERITY_INFO, __VA_ARGS__);
 
 void k_log_(char* file, int32_t line, k_LogSeverity severity, char* fmt, ...);
 
@@ -54,10 +55,10 @@ static uint32_t g_maxFilenameLen;
 
 static char* format_sev(k_LogSeverity sev) {
     switch (sev) {
-        case k_SEVERITY_HIGH: return "\e[31mHIGH  \e[39m";
-        case k_SEVERITY_MEDIUM: return "\e[33mMEDIUM\e[39m";
-        case k_SEVERITY_LOW: return "\e[35mLOW   \e[39m";
-        case k_SEVERITY_INFO: return "\e[34mINFO  \e[39m";
+        case K_SEVERITY_HIGH: return "\e[31mHIGH  \e[39m";
+        case K_SEVERITY_MEDIUM: return "\e[33mMEDIUM\e[39m";
+        case K_SEVERITY_LOW: return "\e[35mLOW   \e[39m";
+        case K_SEVERITY_INFO: return "\e[34mINFO  \e[39m";
         default: return "      ";
     }
 }
@@ -139,11 +140,12 @@ void k_log_print_log_level(k_LogSeverity minLogLevel) {
 
 void k_log_set_cb_function(k_log_cb_function cb_function) {
     G_cb_function = cb_function;
-    k_LOG_I("callback function set to %p", cb_function);
+    K_LOG_I("callback function set to %p", cb_function);
 }
 
 void k_set_max_filename_len(uint32_t maxLen) {
     g_maxFilenameLen = maxLen;
 }
 
-#endif
+#endif // K_LOG_IMPLEMENTATION
+#endif // K_LOG_INCLUDE_GUARD
