@@ -1,33 +1,28 @@
-#define K_LOG_IMPLEMENTATION
-#include "../k_log.h"
-
-#define K_RESULT_USE_K_LOG
-#define K_RESULT_IMPLEMENTATION
 #include "../k_result.h"
 
 k_Result test_assert_do() {
     K_ASSERT_DO(1 > 2, printf("print\n"); return K_ERROR("test_assert_do"));
-    return K_OK();
+    return K_OK;
 }
 
 k_Result test_assert_do_ret() {
     K_ASSERT_DO_RET(1 > 2, printf("print\n"), K_ERROR("test_assert_do_ret"));
-    return K_OK();
+    return K_OK;
 }
 
 k_Result test_assert_do_err() {
     K_ASSERT_DO_ERR(1 > 2, printf("print\n"), "test_assert_do_err");
-    return K_OK();
+    return K_OK;
 }
 
 k_Result test_assert_ret() {
     K_ASSERT_RET(1 > 2, K_ERROR("test_assert_ret"));
-    return K_OK();
+    return K_OK;
 }
 
 k_Result test_assert_err() {
     K_ASSERT_ERR(1 > 2, "test_assert_err");
-    return K_OK();
+    return K_OK;
 }
 
 int main(void) {
@@ -36,7 +31,7 @@ int main(void) {
     res = K_ERROR("test error");
     K_RESULT_PRINT(res);
 
-    res = K_OK();
+    res = K_OK;
     K_RESULT_PRINT(res);
 
     res = test_assert_do();

@@ -21,8 +21,10 @@ typedef struct k_Result {
     const char* message;
 } k_Result;
 
-#define K_OK() k_ok_(__FILE__, __LINE__)
-#define K_ERROR(message) k_error_(__FILE__, __LINE__, (message))
+#define K_OK                                                                   \
+    (k_Result) { K_TRUE, __FILE__, __LINE__, "no errors here :)" }
+#define K_ERROR(message)                                                       \
+    (k_Result) { K_FALSE, __FILE__, __LINE__, message }
 
 k_Result k_ok_(char* file, int32_t line);
 k_Result k_error_(char* file, int32_t line, char* message);
@@ -57,26 +59,4 @@ k_Result k_error_(char* file, int32_t line, char* message);
         );                                                                     \
     } while (0)
 
-//--------------------------------------------------------------------------------------------------------------------//
-// implementation
-//--------------------------------------------------------------------------------------------------------------------//
-
-#ifdef K_RESULT_IMPLEMENTATION
-
-#ifdef K_RESULT_USE_K_LOG
-#include "k_log.h"
-#endif // K_RESULT_INCLUDE_GUARD
-
-k_Result k_ok_(char* file, int32_t line) {
-    return (k_Result){K_TRUE, __FILE__, __LINE__, "no errors here :)"};
-}
-
-k_Result k_error_(char* file, int32_t line, char* message) {
-#ifdef K_RESULT_USE_K_LOG
-    k_log_(file, line, K_SEVERITY_HIGH, "\e[1mk_result\e[0m: %s", message);
-#endif // K_RESULT_INCLUDE_GUARD
-    return (k_Result){K_FALSE, __FILE__, __LINE__, message};
-}
-
-#endif // K_RESULT_IMPLEMENTATION
 #endif // K_RESULT_INCLUDE_GUARD
