@@ -12,16 +12,13 @@
 #include <stdint.h>
 #include <stdio.h>
 
-typedef enum k_Bool {
-    K_TRUE = 1,
-    K_FALSE = 0,
-} k_Bool;
+#include "k_bool.h"
 
 typedef struct k_Result {
     k_Bool ok;
-    char* file;
+    const char* file;
     int32_t line;
-    char* message;
+    const char* message;
 } k_Result;
 
 #define K_OK() k_ok_(__FILE__, __LINE__)
