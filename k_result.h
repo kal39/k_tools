@@ -24,29 +24,18 @@ typedef struct k_Result {
 #define K_OK                                                                   \
     (k_Result) { K_TRUE, __FILE__, __LINE__, "no errors here :)" }
 #define K_ERROR(message)                                                       \
-    (k_Result) { K_FALSE, __FILE__, __LINE__, message }
+    (k_Result) { K_FALSE, __FILE__, __LINE__, (message) }
 
-k_Result k_ok_(char* file, int32_t line);
-k_Result k_error_(char* file, int32_t line, char* message);
-
-#define K_ASSERT_DO(cond, action)                                              \
+#define K_ASSERT(cond, msg)                                                    \
     do {                                                                       \
-        if (!(cond)) {                                                         \
-            do {                                                               \
-                action;                                                        \
-            } while (0);                                                       \
-        }                                                                      \
+        if (!(cond)) return K_ERROR(msg);                                      \
     } while (0)
 
-#define K_ASSERT_DO_RET(cond, action, value)                                   \
-    K_ASSERT_DO((cond), action; return (value));
-
-#define K_ASSERT_DO_ERR(cond, action, message)                                 \
-    K_ASSERT_DO_RET((cond), (action), K_ERROR(message))
-
-#define K_ASSERT_RET(cond, value) K_ASSERT_DO((cond), return (value))
-#define K_ASSERT_ERR(cond, message) K_ASSERT_RET((cond), K_ERROR(message))
-#define K_ASSERT(cond) K_ASSERT_ERR((cond), ERROR("K_ASSERT failed"))
+#define K_TRY(action)                                                          \
+    do {                                                                       \
+        k_Result k_internal_ret_ = (action);                                   \
+        if (!k_internal_ret_.ok) return k_internal_ret_;                       \
+    } while (0)
 
 #define K_RESULT_PRINT(result)                                                 \
     do {                                                                       \

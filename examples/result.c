@@ -21,7 +21,7 @@ k_Result test_assert_ret() {
 }
 
 k_Result test_assert_err() {
-    K_ASSERT_ERR(1 > 2, "test_assert_err");
+    K_ASSERT(1 > 2, "test_assert_err");
     return K_OK;
 }
 
